@@ -47,13 +47,13 @@ Interface (**TypeScript**).
 ```typescript
 type ObjectRecord = { [keyof in string | 'state']: any }
 
-interface UseStateConfig {
+interface UseStateEffectConfig {
   readonly name?: string | null
   readonly destroy?: boolean
   readonly debug?: boolean
 }
 
-function useStateEffect<T>(composable: T, config?: UseStateConfig): ObjectRecord | Ref<null>
+function useStateEffect<T>(composable: T, config?: UseStateEffectConfig): ObjectRecord | Ref<null>
 ```
 
 Please check the configuration, all the details and examples [here](https://github.com/lukasborawski/vue-use-state-effect).

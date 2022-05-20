@@ -1,8 +1,8 @@
 import type { EffectScope, Ref } from 'vue'
 import { effectScope, getCurrentInstance, getCurrentScope, onBeforeUnmount, ref } from 'vue'
-import { Function, UseStateConfig, UseStateEffect, UseStateEffectSignature } from './types'
+import { Function, UseStateEffectConfig, UseStateEffect, UseStateEffectSignature } from './types'
 
-export function useStateEffect(composable: Function, config: UseStateConfig): UseStateEffect | Ref<null> {
+export function useStateEffect(composable: Function, config: UseStateEffectConfig): UseStateEffect | Ref<null> {
   const signature: string = 'useStateEffect'
   /* Composable definition (body|type) check. */
   if (typeof composable !== 'function') {
@@ -12,7 +12,7 @@ export function useStateEffect(composable: Function, config: UseStateConfig): Us
   /* Default Config */
   let subscribers = 0
   let state: any, scope: EffectScope | null
-  const { name, destroy, debug }: UseStateConfig = { name: null, destroy: false, debug: false, ...config }
+  const { name, destroy, debug }: UseStateEffectConfig = { name: null, destroy: false, debug: false, ...config }
   /*
    * Destroy State Effect class.
    * @type {function}
@@ -39,7 +39,7 @@ export function useStateEffect(composable: Function, config: UseStateConfig): Us
    * @class
    * */
   class StateEffect {
-    constructor(state: any) {
+    constructor(state: Function) {
       ;(this as any)._syg = `${name || 'StateEffect'}`
       Object.assign(this, state)
     }
@@ -57,7 +57,7 @@ export function useStateEffect(composable: Function, config: UseStateConfig): Us
       state = scope
       state.on()
       // @ts-ignore: unable to import callable class interface
-      state.effects.push(new StateEffect(composable(...args)))
+      state.effects.push(new StateEffect(composable(...args)) as Function)
       state = getCurrentScope()
     }
     /* Current Vue instance | State check. */
