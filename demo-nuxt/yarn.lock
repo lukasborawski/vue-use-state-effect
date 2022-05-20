@@ -4425,6 +4425,11 @@ type-fest@^2.11.2:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-2.12.2.tgz#80a53614e6b9b475eb9077472fb7498dc7aa51d0"
   integrity sha512-qt6ylCGpLjZ7AaODxbpyBZSs9fCI9SkL3Z9q2oxMBQhs/uyY+VD8jHA8ULCGmWQJlBgqvO3EJeAngOHD8zQCrQ==
 
+typescript@~4.6.4:
+  version "4.6.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.6.4.tgz#caa78bbc3a59e6a5c510d35703f6a09877ce45e9"
+  integrity sha512-9ia/jWHIEbo49HfjrLGfKbZSuWo9iTMwXO+Ca3pRsSpbsMbc7/IU8NKdCZVRRBafVPGnoJeFL76ZOAA84I9fEg==
+
 ufo@^0.7.11:
   version "0.7.11"
   resolved "https://registry.yarnpkg.com/ufo/-/ufo-0.7.11.tgz#17defad497981290383c5d26357773431fdbadcb"
@@ -4670,6 +4675,13 @@ vue-router@^4.0.14:
   integrity sha512-xa+pIN9ZqORdIW1MkN2+d9Ui2pCM1b/UMgwYUCZOiFYHAvz/slKKBDha8DLrh5aCG/RibtrpyhKjKOZ85tYyWg==
   dependencies:
     "@vue/devtools-api" "^6.0.0"
+
+vue-use-state-effect@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/vue-use-state-effect/-/vue-use-state-effect-0.1.0.tgz#ebb8cfb53724489b782ae873bb7998271fa8b557"
+  integrity sha512-wH9IY1M10yyWtz+km2IUk4/ISUPntVSwE2t7up5EieQakztoSpGjRjAF1e8wAlTRYNXme8yjAFuu+jNIZkEaAg==
+  dependencies:
+    typescript "~4.6.4"
 
 vue@^3.2.33:
   version "3.2.33"

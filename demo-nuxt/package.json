@@ -8,6 +8,9 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview"
   },
+  "dependencies": {
+    "vue-use-state-effect": "^0.1.0"
+  },
   "devDependencies": {
     "nuxt": "3.0.0-rc.1"
   }
