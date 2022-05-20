@@ -20,4 +20,4 @@ const sharedFetch = () => {
   }
 }
 
-export const useSharedFetch = useStateEffect(sharedFetch, { name: 'sharedFetch', debug: true, destroy: true })
+export const useSharedFetch = useStateEffect(sharedFetch, { name: 'sharedFetch', debug: true, destroy: false })
