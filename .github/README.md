@@ -17,7 +17,7 @@ Fast and small library (composable), built on top of the native `EffectScope` **
 You can read all about the technical background and all the details in this [article](https://lukasborawski.medium.com/vue-use-state-effect-14f81a6c8d62).
 
 Check out below how to use it, provided examples and demos where you can see it in action. Any questions, problems, errors? Please 
-check out the [Q&A](#questions) section first, then if you still will be unhappy add a new [Issue](/issues). Thanks and Enjoy!
+check out the [Q&A](#questions) section first, then if you still will be unhappy add a new [Issue](https://github.com/lukasborawski/vue-use-state-effect/issues). Thanks and Enjoy!
 
 ### Installation
 
@@ -207,7 +207,11 @@ const test = ref(state.value.test) // '🌝 Updated state value.',
 
 ---
 
-Want to check and test it in action? Try out the simple apps (Vue 3 and Nuxt 3) in the `demo` folders. You can fire it up manually or from the main folder of this repository, by using these two commands*.
+Want to check and test it in action? 
+
+#### Check out the **Stackblitz** Nuxt 3 demo [here](https://stackblitz.com/edit/vue-use-state-effect-demo). 🚀
+
+You can also try out locally with the simple apps (Vue 3 and Nuxt 3) in the `demo` folders. You can fire it up manually or from the main folder of this repository, by using these two commands*.
 
 ```bash
 # vue demo
