@@ -18,6 +18,7 @@ declare.d.ts
 rollup.config.ts
 tsconfig.json
 yarn.lock
+package-lock.json
 *.log
 *.logs
 
