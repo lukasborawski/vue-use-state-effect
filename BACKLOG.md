@@ -3,5 +3,9 @@
 - [ ] multi-state
 - [ ] threads (on top of `id`)
 - [ ] destroying destination
-- [x] unit tests - done in `0.1.0`
 - [ ] docs on Nuxt Content
+- [ ] Q&A section
+
+### Done:
+
+- [x] unit tests - delivered with `0.1.0`
