@@ -97,3 +97,5 @@ sw.*
 
 lib
 .husky/_
+
+vue-use-state-effect/
