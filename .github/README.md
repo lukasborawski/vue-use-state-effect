@@ -70,14 +70,19 @@ You can use some options to define your usage preferences.
 ### `name`
 
 - **type:** `String | 'state'`
+
 - **default**: `state`
+
 - **description**: name of composable state object that you'll be referring to inside your components, if not defined by default your state object will get `state` key, please note that it's not read automatically and that's because of application build mode functions name-spaces formatting
 
 ### `debug`
 
 - **type**: `Boolean`
+
 - **default**: `false`
+
 - **description**: if set to `true` it will turn on the debug mode, you will be able to see the shared composable body
+
 - **tip**: you can turn it on for the development mode
    
     ```json
@@ -87,7 +92,9 @@ You can use some options to define your usage preferences.
 ### `destroy`
 
 - **type**: `Boolean`
+
 - **default**: `false`
+
 - **description**: if set to `true` composable state will be destroyed after component `onBeforeUnmount` hook
 
 Here is a simple example of how to use it (the whole config).
