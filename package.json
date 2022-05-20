@@ -27,7 +27,7 @@
     "typescript"
   ],
   "author": "lukasborawski",
-  "license": "MIT",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/lukasborawski/vue-use-state-effect/issues"
   },

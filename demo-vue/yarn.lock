@@ -475,6 +475,11 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
+typescript@~4.6.4:
+  version "4.6.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.6.4.tgz#caa78bbc3a59e6a5c510d35703f6a09877ce45e9"
+  integrity sha512-9ia/jWHIEbo49HfjrLGfKbZSuWo9iTMwXO+Ca3pRsSpbsMbc7/IU8NKdCZVRRBafVPGnoJeFL76ZOAA84I9fEg==
+
 vite-aliases@^0.8.7:
   version "0.8.7"
   resolved "https://registry.yarnpkg.com/vite-aliases/-/vite-aliases-0.8.7.tgz#ce049abfa2d1c70db8853fe2c961c1a65e314502"
@@ -510,6 +515,13 @@ vue-tsc@^0.34.11:
   integrity sha512-5NM4oR8U/c3mTlJ9aNXbXkAGT2bhq+FJpCgZDqOKPpCjW5QDx1BXPC+nrBXNMwg8TRL6pK4fl+x+hrK97Siq/Q==
   dependencies:
     "@volar/vue-typescript" "0.34.11"
+
+vue-use-state-effect@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/vue-use-state-effect/-/vue-use-state-effect-0.1.0.tgz#ebb8cfb53724489b782ae873bb7998271fa8b557"
+  integrity sha512-wH9IY1M10yyWtz+km2IUk4/ISUPntVSwE2t7up5EieQakztoSpGjRjAF1e8wAlTRYNXme8yjAFuu+jNIZkEaAg==
+  dependencies:
+    typescript "~4.6.4"
 
 vue@^3.2.33:
   version "3.2.33"
