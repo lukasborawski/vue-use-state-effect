@@ -1,0 +1,20 @@
+{
+  "name": "vue-use-state-effect-demo",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.2.33",
+    "vue-router": "^4.0.12"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.0.0",
+    "vite-aliases": "^0.8.7",
+    "vite": "^2.7.2",
+    "vue-tsc": "^0.34.11"
+  }
+}
