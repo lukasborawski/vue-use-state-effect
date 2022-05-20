@@ -12,7 +12,7 @@ Fast and small library (composable), built on top of the native `EffectScope` **
 
 ---
 
-You can read all about the technical background and all the details in this [article]().
+You can read all about the technical background and all the details in this [article](https://lukasborawski.medium.com/vue-use-state-effect-14f81a6c8d62).
 
 Check out below how to use it, provided examples and demos where you can see it in action. Any questions, problems, errors? Please 
 check out the [Q&A](#questions) section first, then if you still will be unhappy add a new [Issue](). Thanks and Enjoy!
