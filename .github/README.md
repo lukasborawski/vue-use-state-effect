@@ -211,7 +211,7 @@ yarn demo:nuxt
 
 ---
 
-**API Reference**: Check out the [types](src/types.d.ts) for API definitions.
+**API Reference**: Check out the [types](/src/types.d.ts) for API definitions.
 
 **Contribution**: Please add Pull Request or Issue to introduce some changes or fixes.
 
