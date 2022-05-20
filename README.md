@@ -10,7 +10,9 @@ Fast and small library, built on top of the native `scopeEffect` **Vue 3 API** t
 
 ---
 
-You can read all about the technical background and all the details in this [article]().
+You can read all about the technical background and all the details in this [article](https://lukasborawski.medium.com/vue-use-state-effect-14f81a6c8d62).
+
+Check out the **Stackblitz** demo [here](https://stackblitz.com/edit/vue-use-state-effect-demo). 🚀
 
 ### Install
 
