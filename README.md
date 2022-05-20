@@ -6,13 +6,13 @@
 
 Fast and small library, built on top of the native `scopeEffect` **Vue 3 API** that will provide safe and sharable (across the app) state for your local composables and functions. It might be a good replacement for **Vuex** or **Pinia** state management, if you need smaller and less extensive solution.
 
+#### Check out the **Stackblitz** Nuxt 3 demo [here](https://stackblitz.com/edit/vue-use-state-effect-demo). 🚀
+
 ### Motivation / Story
 
 ---
 
 You can read all about the technical background and all the details in this [article](https://lukasborawski.medium.com/vue-use-state-effect-14f81a6c8d62).
-
-Check out the **Stackblitz** demo [here](https://stackblitz.com/edit/vue-use-state-effect-demo). 🚀
 
 ### Install
 
