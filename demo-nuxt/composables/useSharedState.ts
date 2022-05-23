@@ -5,7 +5,7 @@ const sharedState = () => {
   const state = ref({
     test: '🚀 Initial state value.',
   })
-  const updateState = () => {
+  const updateState: () => void = () => {
     state.value = {
       test: '🌝 Updated state value.',
     }

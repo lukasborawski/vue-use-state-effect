@@ -8,8 +8,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useSharedState } from './../composables/useSharedState'
 import { useRouter } from 'vue-router'
+import { useSharedState } from './../composables/useSharedState'
 
 const {
   sharedState: { state, updateState },
