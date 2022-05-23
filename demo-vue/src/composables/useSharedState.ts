@@ -2,10 +2,9 @@ import { ref } from 'vue'
 import { useStateEffect } from 'vue-use-state-effect'
 
 const sharedState = () => {
-  let state = ref({})
-  state.value = {
+  const state = ref({
     test: '🚀 Initial state value.',
-  }
+  })
   const updateState = () => {
     state.value = {
       test: '🌝 Updated state value.',

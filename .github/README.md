@@ -125,10 +125,9 @@ OK - first - let's create a local composable.
 import { ref } from 'vue'
 
 const sharedState = () => {
-  let state = ref({})
-  state.value = {
+  const state = ref({
     test: '🚀 Initial state value.',
-  }
+  })
   const updateState = () => {
     state.value = {
       test: '🌝 Updated state value.',
