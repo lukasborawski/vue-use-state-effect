@@ -1,7 +1,5 @@
 ## Vue Use State Effect
 
-<a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&r=r&type=6e&v=0.1.0&x2=0" alt="npm version" height="18"></a>
-
 **CAUTION**: Built and tested for/with **Vue 3** and/or **Nuxt 3**.
 
 Fast and small library, built on top of the native `scopeEffect` **Vue 3 API** that will provide safe and sharable (across the app) state for your local composables and functions. It might be a good replacement for **Vuex** or **Pinia** state management, if you need smaller and less extensive solution.
