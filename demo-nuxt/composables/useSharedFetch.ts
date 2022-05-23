@@ -1,10 +1,10 @@
 import { useFetch } from '#app'
-import { ref } from 'vue'
+import { ref} from 'vue'
 import { useStateEffect } from 'vue-use-state-effect'
 
 const sharedFetch = () => {
   const characters = ref<any>([])
-  const loading = ref<any>(false)
+  const loading = ref<Boolean>(false)
 
   const getCharacters = async () => {
     loading.value = true
