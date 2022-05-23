@@ -50,15 +50,15 @@ export const useSharedComposable = useStateEffect(composable)
 Interface (**TypeScript**).
 
 ```typescript
-type ObjectRecord = { [keyof in string | 'state']: any }
-
 interface UseStateEffectConfig {
   readonly name?: string | null
   readonly destroy?: boolean
   readonly debug?: boolean
 }
 
-function useStateEffect<T>(composable: T, config?: UseStateEffectConfig): ObjectRecord | Ref<null>
+export function useStateEffect<T extends (...args: any[]) => any>(composable: T, config?: UseStateEffectConfig): () => {
+  [keyof in string | 'state']: ReturnType<T>
+}
 ```
 
 Please check the [example](#example) for some wider perspective.

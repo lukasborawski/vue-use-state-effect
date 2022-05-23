@@ -12,7 +12,7 @@ Fast and small library, built on top of the native `scopeEffect` **Vue 3 API** t
 
 ---
 
-You can read all about the technical background and all the details in this [article](https://lukasborawski.medium.com/vue-use-state-effect-14f81a6c8d62).
+You can read all about the technical background and all the details in this [article](https://itnext.io/vue-use-state-effect-14f81a6c8d62).
 
 ### Install
 
@@ -45,15 +45,15 @@ export const useSharedComposable = useStateEffect(composable)
 Interface (**TypeScript**).
 
 ```typescript
-type ObjectRecord = { [keyof in string | 'state']: any }
-
 interface UseStateEffectConfig {
   readonly name?: string | null
   readonly destroy?: boolean
   readonly debug?: boolean
 }
 
-function useStateEffect<T>(composable: T, config?: UseStateEffectConfig): ObjectRecord | Ref<null>
+export function useStateEffect<T extends (...args: any[]) => any>(composable: T, config?: UseStateEffectConfig): () => {
+  [keyof in string | 'state']: ReturnType<T>
+}
 ```
 
 Please check the configuration, all the details and examples [here](https://github.com/lukasborawski/vue-use-state-effect).
