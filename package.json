@@ -5,6 +5,16 @@
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs.js",
+      "import": "./dist/index.es.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "prepare": "husky install",
     "build": "rimraf ./lib/ && rollup -c",
