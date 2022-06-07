@@ -1,11 +1,11 @@
 ### Missing features, things to do:
 
-- [ ] multi-state
-- [ ] threads (on top of `id`)
-- [ ] destroying destination
+- [ ] state reset
+- [ ] cached multi-state / threads
 - [ ] docs on Nuxt Content
 - [ ] Q&A section
 
 ### Done:
 
-- [x] unit tests - delivered with `0.1.0`
+- [x] destroying destination - `0.1.2`
+- [x] unit tests - `0.1.0`
