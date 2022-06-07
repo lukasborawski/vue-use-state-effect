@@ -6,20 +6,20 @@
 </template>
 
 <script setup lang="ts">
-import { useSharedState } from './../composables/useSharedState'
+import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { onMounted, ref } from 'vue'
+import { useSharedState } from './../composables/useSharedState'
 
 const router = useRouter()
-const test = ref('')
+const {
+  sharedState: { state },
+} = useSharedState()
 
-onMounted(() => {
-  const {
-    sharedState: { state },
-  } = useSharedState()
-  test.value = state.value.test
+const test = ref<any>(state.value.test)
+
+watch([() => state.value], ([newState]) => {
+  test.value = newState.test
 })
-
 const goToHome = () => {
   return router.push('/')
 }

@@ -1,6 +1,6 @@
 import { useFetch } from '#app'
-import { ref } from 'vue'
-import { useStateEffect } from 'vue-use-state-effect'
+import { computed, ref } from 'vue'
+import { useStateEffect } from '../../'
 
 const sharedFetch = () => {
   const characters = ref<any>([])
@@ -14,10 +14,10 @@ const sharedFetch = () => {
   }
 
   return {
-    loading,
+    loading: computed(() => loading.value),
     characters,
     getCharacters,
   }
 }
 
-export const useSharedFetch = useStateEffect(sharedFetch, { name: 'sharedFetch', debug: true, destroy: false })
+export const useSharedFetch = useStateEffect(sharedFetch, { name: 'sharedFetch', debug: true, destroy: 'custom' })
