@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { useStateEffect } from 'vue-use-state-effect'
+import { useStateEffect } from '../../../'
 
 const sharedState = () => {
   const state = ref({

@@ -11,8 +11,8 @@
     "dev": "rollup -c -w",
     "test": "jest --passWithNoTests --coverage",
     "prepublish": "yarn build",
-    "demo:vue": "cd demo-vue && yarn && yarn dev",
-    "demo:nuxt": "cd demo-nuxt && yarn && yarn dev"
+    "demo:vue": "yarn build && cd demo-vue && yarn && yarn dev",
+    "demo:nuxt": "yarn build && cd demo-nuxt && yarn && yarn dev"
   },
   "repository": {
     "type": "git",

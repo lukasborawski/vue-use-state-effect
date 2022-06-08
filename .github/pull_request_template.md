@@ -7,6 +7,7 @@ Closing: #[issue number]
 * [ ] issue connected
 * [ ] summary
 * [ ] self review
+* [ ] issue todos
 
 **Summary**:
 ---

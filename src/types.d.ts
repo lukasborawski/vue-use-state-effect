@@ -8,14 +8,14 @@ export interface UseStateEffectConfig {
   readonly destroy?: boolean | 'custom'
   readonly debug?: boolean
 }
+export type UseStateEffectOptions<T = any> = {
+  readonly destroyLabels: string[]
+  readonly props: ExtractPropTypes<{ stateEffectDestroyLabel: string } | T>
+}
 export type UseStateEffect = (
   args: UseStateEffectOptions<args.props>,
 ) => Ref<null> | { [x: string]: Ref<null> | UseStateEffectSignature }
 export type UseStateEffectSignature = { _syg: string | 'StateEffect'; _uid: number }
-export type UseStateEffectOptions<T = any> = {
-  destroyLabels: string[]
-  props: ExtractPropTypes<{ stateEffectDestroyLabel: string } | T>
-}
 
 export class StateEffect<T = Function> {
   [state: 'StateEffect']: T
