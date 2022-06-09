@@ -1,6 +1,6 @@
 import { ExtractPropTypes, Ref } from 'vue'
 
-export type Function = (...args: any) => {
+export type Function = (...args: any[]) => {
   name: string
 }
 export interface UseStateEffectConfig {
