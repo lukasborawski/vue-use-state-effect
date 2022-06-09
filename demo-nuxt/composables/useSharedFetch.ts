@@ -1,6 +1,6 @@
 import { useFetch } from '#app'
 import { computed, ref } from 'vue'
-import { useStateEffect } from '../../'
+import { useStateEffect } from 'vue-use-state-effect'
 
 const sharedFetch = () => {
   const characters = ref<any>([])
