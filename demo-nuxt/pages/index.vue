@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="m-4 p-4 font-black border-2">
+    <div class="m-4 p-4 border-2">
       <h5 class="mb-4 font-bold text-gray-400">Static data state demo</h5>
-      <div class="text-lg color-black mb-4">{{ testState }}</div>
+      <div class="text-lg color-black mb-4 font-black">{{ testState }}</div>
       <button @click="updateState" class="p-3 bg-black mr-4 rounded text-white">update state</button>
       <button @click="goTo('keep')" class="p-3 bg-black mr-4 rounded text-white">go to keep state page</button>
     </div>
