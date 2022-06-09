@@ -5,23 +5,26 @@ const config = {
   name: 'sharedState',
   instance: true,
 }
+const instance = {
+  uid: 1,
+  type: {
+    props: {},
+  },
+}
 
 jest.mock('vue', () => ({
   ref: jest.requireActual('vue').ref,
-  getCurrentInstance: config.instance
-    ? jest.fn(() => {
-        return { instance: true }
-      })
-    : null,
+  getCurrentInstance: config.instance ? jest.fn(() => instance) : null,
   getCurrentScope: jest.requireActual('vue').getCurrentScope,
   effectScope: jest.requireActual('vue').effectScope,
   // lint-disable-next-line
   onBeforeUnmount: jest.fn((fn) => fn()),
+  onBeforeMount: jest.fn((fn) => fn()),
 }))
 
 describe('vue-use-state-effect', () => {
-  getCurrentInstance.mockImplementation(() => true)
-  global.console = { debug: jest.fn(), warn: jest.fn() }
+  getCurrentInstance.mockImplementation(() => instance)
+  global.console = { debug: jest.fn(), warn: jest.fn(), log: console.log }
 
   const { name } = config
   const stateMock = ref({ test: '🚀 Initial state value.' })
@@ -45,12 +48,17 @@ describe('vue-use-state-effect', () => {
   class StateEffect {
     constructor(state, signature) {
       this._syg = signature || 'StateEffect'
+      this._uid = 1
       Object.assign(this, state)
     }
   }
 
   describe('was invoked without config and', () => {
     const state = new StateEffect({ state: ref({ test: '🚀 Initial state value.' }) })
+
+    beforeEach(() => {
+      jest.clearAllMocks()
+    })
     it('returns state', () => {
       const receivedState = useStateEffect(composableMock)()
       const expectState = { state }
@@ -71,6 +79,10 @@ describe('vue-use-state-effect', () => {
 
   describe('was invoked with config and', () => {
     const state = new StateEffect({ state: ref({ test: '🚀 Initial state value.' }) }, name)
+
+    beforeEach(() => {
+      jest.clearAllMocks()
+    })
     it('has custom state object name', () => {
       const receivedState = useStateEffect(composableMock, { name })()
       const expectState = { sharedState: state }
@@ -85,9 +97,19 @@ describe('vue-use-state-effect', () => {
       expect(receivedState).toEqual({ [name]: ref(null) })
       expect(console.debug).toBeCalledTimes(2)
     })
+    it('destroys state with custom settings', () => {
+      const receivedState = useStateEffect(composableMock, { name, destroy: 'custom', debug: true })
+      expect(receivedState({ destroyLabels: ['Test'], props: { stateEffectDestroyLabel: 'Test' } })).toEqual({
+        [name]: ref(null),
+      })
+      expect(console.debug).toBeCalledTimes(2)
+    })
   })
 
   describe('will fail when', () => {
+    beforeEach(() => {
+      jest.clearAllMocks()
+    })
     it('composable is not a function', () => {
       const receivedState = useStateEffect('test', { debug: true })
       expect(receivedState).toStrictEqual(ref(null))
@@ -97,7 +119,7 @@ describe('vue-use-state-effect', () => {
       getCurrentInstance.mockImplementation(() => false)
       const receivedState = useStateEffect(composableMock, { debug: true })()
       expect(receivedState).toStrictEqual(ref(null))
-      expect(console.warn).toBeCalledTimes(2)
+      expect(console.warn).toBeCalledTimes(1)
     })
   })
 })

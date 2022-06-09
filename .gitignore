@@ -98,4 +98,5 @@ sw.*
 lib
 .husky/_
 
+package
 vue-use-state-effect/

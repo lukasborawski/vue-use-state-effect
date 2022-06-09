@@ -1,6 +1,6 @@
 {
   "name": "vue-use-state-effect",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Fast and small library, built on top of the native Vue.js API that will provide a safe and sharable (across the app) state for your local composables and functions.",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
@@ -11,8 +11,8 @@
     "dev": "rollup -c -w",
     "test": "jest --passWithNoTests --coverage",
     "prepublish": "yarn build",
-    "demo:vue": "cd demo-vue && yarn && yarn dev",
-    "demo:nuxt": "cd demo-nuxt && yarn && yarn dev"
+    "demo:vue": "yarn build && cd demo-vue && yarn && yarn dev",
+    "demo:nuxt": "yarn build && cd demo-nuxt && yarn && yarn dev"
   },
   "repository": {
     "type": "git",
