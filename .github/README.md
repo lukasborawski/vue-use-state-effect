@@ -56,8 +56,8 @@ interface UseStateEffectConfig {
   readonly debug?: boolean
 }
 export type UseStateEffectOptions<T = any> = {
-  destroyLabels: string[]
-  props: ExtractPropTypes<{ stateEffectDestroyLabel: string } | T>
+  readonly destroyLabels: string[]
+  readonly props: ExtractPropTypes<{ stateEffectDestroyLabel: string } | T>
 }
 
 export function useStateEffect<T extends (...args: any[]) => ReturnType<T>>(
