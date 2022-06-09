@@ -45,11 +45,18 @@ Interface (**TypeScript**).
 ```typescript
 interface UseStateEffectConfig {
   readonly name?: string | null
-  readonly destroy?: boolean
+  readonly destroy?: boolean | 'custom'
   readonly debug?: boolean
 }
+export type UseStateEffectOptions<T = any> = {
+  destroyLabels: string[]
+  props: ExtractPropTypes<{ stateEffectDestroyLabel: string } | T>
+}
 
-export function useStateEffect<T extends (...args: any[]) => any>(composable: T, config?: UseStateEffectConfig): () => {
+export function useStateEffect<T extends (...args: any[]) => ReturnType<T>>(
+  composable: T,
+  config?: UseStateEffectConfig,
+): (opts?: UseStateEffectOptions<opts.props>) => {
   [keyof in string | 'state']: ReturnType<T>
 }
 ```
