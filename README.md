@@ -1,6 +1,6 @@
 ## Vue Use State Effect
 
-**CAUTION**: Built and tested for/with **Vue 3** and/or **Nuxt 3**.
+**CAUTION**: Built and tested for/with **Vue 3** and/or **Nuxt 3** (RC-2).
 
 Fast and small library, built on top of the native `scopeEffect` **Vue 3 API** that will provide safe and sharable (across the app) state for your local composables and functions. It might be a good replacement for **Vuex** or **Pinia** state management, if you need smaller and less extensive solution.
 
@@ -11,6 +11,8 @@ Fast and small library, built on top of the native `scopeEffect` **Vue 3 API** t
 ---
 
 You can read all about the technical background and all the details in this [article](https://itnext.io/vue-use-state-effect-14f81a6c8d62).
+
+Configuration (docs) and examples can be found [here](https://github.com/lukasborawski/vue-use-state-effect).
 
 ### Install
 
@@ -37,7 +39,7 @@ const composable = () => {
   /* your composable logic here */
 }
 
-export const useSharedComposable = useStateEffect(composable)
+export const useSharedComposable = useStateEffect(composable, { ...config })
 ```
 
 Interface (**TypeScript**).
