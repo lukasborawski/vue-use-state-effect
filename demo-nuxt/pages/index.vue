@@ -12,7 +12,9 @@
       <button @click="getCharacters" class="p-3 bg-black mr-4 mb-4 rounded text-white">
         {{ loading ? 'loading' : 'first fetch Rick & Morty characters' }}
       </button>
-      <button @click="goTo('destroy')" class="p-3 bg-black mr-4 mb-4 rounded text-white">then go to destroy state page</button>
+      <button @click="goTo('destroy')" class="p-3 bg-black mr-4 mb-4 rounded text-white">
+        then go to destroy state page
+      </button>
       <button @click="goTo('keep')" class="p-3 bg-black mr-4 mb-4 rounded text-white">or go to keep state page</button>
     </div>
   </div>

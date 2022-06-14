@@ -3,6 +3,8 @@
 <a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://img.shields.io/github/workflow/status/lukasborawski/vue-use-state-effect/CI" alt="npm version" height="18"></a>
 <a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&r=r&type=6e&v=0.1.2&x2=0" alt="npm version" height="18"></a>
 <a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://img.shields.io/bundlephobia/min/vue-use-state-effect" alt="npm version" height="18"></a>
+<a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://img.shields.io/npm/dm/vue-use-state-effect" alt="npm version" height="18"></a>
+<a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://img.shields.io/npm/l/vue-use-state-effect" alt="npm version" height="18"></a>
 
 **CAUTION**: Built and tested for/with **Vue 3** and/or **Nuxt 3** (RC-2).
 
@@ -181,7 +183,7 @@ More about it in the example that you can find below.
 
 ---
 
-Here you can find a simple usage example that was also covered within the demo projects which you can discover in this repository (one for Vue and one for Nuxt). Check out the [Demo](#demo) section below for more details.
+Here you can find a simple usage example, that was also covered within the demo projects which you can discover in this repository (one for Vue and one for Nuxt). Check out the [Demo](#demo) section below for more details.
 
 OK - first - let's create a local composable.
 
@@ -278,7 +280,7 @@ Want to check and test it in action?
 
 #### Check out the **Stackblitz** Nuxt 3 demo [here](https://stackblitz.com/edit/vue-use-state-effect-demo). 🚀
 
-You can also try out locally with the simple apps (Vue 3 and Nuxt 3) in the `demo` folders. You can fire it up manually or from the main folder of this repository, by using these two commands*.
+You can also try it out locally with the simple apps (Vue 3 and Nuxt 3) in the `demo` folders. You can fire it up manually or from the main folder of this repository, by using these two commands*.
 
 ```bash
 # vue demo
