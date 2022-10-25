@@ -67,7 +67,7 @@ export function useStateEffect(composable: Function, config: UseStateEffectConfi
      * Current Vue Instance check.
      */
     if (!getCurrentInstance()) {
-      if (!getCurrentInstance()) console.warn(`[${useStateEffectSig}] Unable to read current instance.`)
+      console.warn(`[${useStateEffectSig}] Unable to read current instance.`)
       return ref<null>(null)
     }
     /**

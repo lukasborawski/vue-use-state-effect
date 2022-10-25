@@ -1,10 +1,16 @@
 {
   "name": "vue-use-state-effect",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Fast and small library, built on top of the native Vue.js API that will provide a safe and sharable (across the app) state for your local composables and functions.",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE.md"
+  ],
   "scripts": {
     "prepare": "husky install",
     "build": "rimraf ./lib/ && rollup -c",
