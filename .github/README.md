@@ -1,6 +1,6 @@
 ## Vue Use State Effect
 
-<a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://img.shields.io/github/workflow/status/lukasborawski/vue-use-state-effect/CI" alt="npm version" height="18"></a>
+<!-- <a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://img.shields.io/github/workflow/status/lukasborawski/vue-use-state-effect/CI" alt="npm version" height="18"></a> -->
 <a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&r=r&type=6e&v=0.1.4&x2=0" alt="npm version" height="18"></a>
 <a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://img.shields.io/bundlephobia/min/vue-use-state-effect" alt="npm version" height="18"></a>
 <a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://img.shields.io/npm/dm/vue-use-state-effect" alt="npm version" height="18"></a>
