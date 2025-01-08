@@ -8,7 +8,7 @@ export type Function = (...args: any[]) => any
 /**
  * Interface for the configuration of the useStateEffect composable.
  */
-export interface UseStateEffectConfig {
+export interface Config {
   readonly name?: string | null
   readonly destroy?: boolean | 'custom'
   readonly debug?: boolean
@@ -17,13 +17,13 @@ export interface UseStateEffectConfig {
 /**
  * Type definition for the return value of the useStateEffect composable.
  */
-type ComposableReturnValue = Ref | ComputedRef | Function
-type UseStateEffectComposableReturn = Record<string, ComposableReturnValue>
+type ComposableEffectValue = Ref | ComputedRef | Function
+type ComposableEffect = Record<string, ComposableEffectValue>
 
 /**
  * Type definition for the options of the useStateEffect composable.
  */
-export type UseStateEffectOptions<Addons = UseStateEffectComposableReturn> = Partial<{
+export type Options<Addons = ComposableEffect> = Partial<{
   readonly destroyLabels: string[]
   readonly props: ExtractPropTypes<{ stateEffectDestroyLabel: string }>
   readonly addons: Addons
@@ -32,29 +32,26 @@ export type UseStateEffectOptions<Addons = UseStateEffectComposableReturn> = Par
 /**
  * Type definition for the arguments of the useStateEffect composable.
  */
-export type UseStateEffectComposableArgs<Addons extends UseStateEffectComposableReturn> =
-  UseStateEffectOptions<Addons>[]
+export type ComposableArgs<Addons extends ComposableEffect> = Options<Addons>[]
 
 /**
  * Type definition for the useStateEffect composable.
  */
-export type UseStateEffect = (
-  args: UseStateEffectOptions,
-) => Ref<null> | { [x: string]: Ref<null> | UseStateEffectSignature }
+export type UseStateEffect = (args: Options) => Ref<null> | { [x: string]: Ref<null> | Signature }
 
 /**
  * Type definition for the signature of the useStateEffect composable.
  */
-export type UseStateEffectSignature = { _syg: string; _uid: number }
+export type Signature = { _syg: string; _uid: number }
 
 /**
  * Class definition for the StateEffect.
  */
-export class StateEffect<T = Function> {
-  private state: T
+export class StateEffect<State = Function> {
+  private state: State
   private _syg: string
   private _uid: number
-  constructor(state: T, uid: number) {
+  constructor(state: State, uid: number) {
     this.state = state
     this._syg = `${uid}`
     this._uid = uid
@@ -65,13 +62,13 @@ export class StateEffect<T = Function> {
  * Function definition for the useStateEffect composable.
  */
 export declare function useStateEffect<
-  ComposableExtend extends UseStateEffectComposableReturn,
-  ComposableReturn extends ComposableExtend extends undefined ? unknown : Record<string, ComposableReturnValue>,
+  Extend extends ComposableEffect,
+  Effect extends Extend extends undefined ? unknown : Record<string, ComposableEffectValue>,
 >(
   composable: (
-    ...args: UseStateEffectComposableArgs<ComposableExtend>
-  ) => ComposableReturn extends undefined ? Record<string, ComposableReturnValue> : ComposableReturn,
-  config?: UseStateEffectConfig,
-): (options?: UseStateEffectOptions<ComposableExtend>) => {
-  [key: string | 'state']: unknown extends ComposableReturn ? ReturnType<typeof composable> : ComposableReturn
+    ...args: ComposableArgs<Extend>
+  ) => Effect extends undefined ? Record<string, ComposableEffectValue> : Effect,
+  config?: Config,
+): (options?: Options<Extend>) => {
+  [key: string | 'state']: unknown extends Effect ? ReturnType<typeof composable> : Effect
 }

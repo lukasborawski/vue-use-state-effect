@@ -48,19 +48,28 @@ export const sharedComposable = useStateEffect(
 )
 ```
 
-Interface (**TypeScript**).
+#### Interface
 
 ```typescript
+type ComposableEffectValue = Ref | ComputedRef | Function
+type ComposableEffect = Record<string, ComposableEffectValue>
+
+export type Options<Addons = ComposableEffect> = Partial<{
+  readonly destroyLabels: string[]
+  readonly props: ExtractPropTypes<{ stateEffectDestroyLabel: string }>
+  readonly addons: Addons
+}>
+
 function useStateEffect<
-  ComposableExtend extends UseStateEffectComposableReturn,
-  ComposableReturn extends ComposableExtend extends undefined ? unknown : Record<string, ComposableReturnValue>,
+  Extend extends ComposableEffect,
+  Effect extends Extend extends undefined ? unknown : Record<string, ComposableEffectValue>,
 >(
   composable: (
-    ...args: UseStateEffectComposableArgs<ComposableExtend>
-  ) => ComposableReturn extends undefined ? Record<string, ComposableReturnValue> : ComposableReturn,
-  config?: UseStateEffectConfig,
-): (options?: UseStateEffectOptions<ComposableExtend>) => {
-  [key: string | 'state']: unknown extends ComposableReturn ? ReturnType<typeof composable> : ComposableReturn
+    ...args: ComposableArgs<Extend>
+  ) => Effect extends undefined ? Record<string, ComposableEffectValue> : Effect,
+  config?: Config,
+): (options?: Options<Extend>) => {
+  [key: string | 'state']: unknown extends Effect ? ReturnType<typeof composable> : Effect
 }
 ```
 
@@ -107,20 +116,12 @@ You can use some options to define your usage preferences.
 
 You can decide where the state will be destroyed (re-initialized). You will achieve this by passing special property and corresponding label that will point place / component where it should be executed.
 
-For this one you can pass inline options to the `useStateEffect` composable while invoking within the components.
+For this one you can pass inline options to the `useStateEffect` composable while invoking within the component - check the interface [here](#interface).
 
-```typescript
-type UseStateEffectOptions<Addons = UseStateEffectComposableReturn> = Partial<{
-  readonly destroyLabels: string[]
-  readonly props: ExtractPropTypes<{ stateEffectDestroyLabel: string }>
-  readonly addons: Addons
-}>
-```
-
-Let's say that `SharedStateComponent.vue` component is reused across the application, and you're displaying here some shared data from the `useSharedState` composable. And it will always be updated and aligned with the state unless the passed property from the parent component will not meet the same custom label defined as a `destroyLabels` (you can use multiple) with your composable invocation. Like this.
+Suppose you have a `SharedStateComponent.vue` component that is reused throughout the application, and it displays shared data from the `useSharedState` composable. This data will always be updated and synchronized with the state, unless the property passed from the parent component does not match the custom label specified as `destroyLabels` (which can be multiple) in your composable invocation.
 
 ```vue
-<!-- SharedStateComponent.vue  -->
+<!-- components/SharedStateComponent.vue  -->
 
 <script setup lang="ts">
 import { useSharedState } from '@composables/useSharedState'
@@ -163,16 +164,7 @@ Great! You can check it in action with the special Nuxt 3 [StackBlitz](https://s
 
 ---
 
-There might be a need to extend the composable that you're sharing. Maybe add some additional data that is coming from the other composable, or some global handler dedicated to the wider context. Since the `useStateEffect` works with one, and current instance of Vue component it's not possible to initialize one (composable) inside another. However, each shared composable is able to receive additional options (within `...args`) while initialization.
-
-```typescript
-type UseStateEffectComposableReturn = Record<string, Ref | ComputedRef | Function>
-type UseStateEffectOptions<Addons = UseStateEffectComposableReturn> = Partial<{
-  readonly destroyLabels: string[]
-  readonly props: ExtractPropTypes<{ stateEffectDestroyLabel: string }>
-  readonly addons: Addons
-}>
-```
+There might be a need to extend the composable that you're sharing with `useStateEffect`. Maybe add some additional data that is coming from the other composable, or some global handler dedicated to the wider context. Since the `useStateEffect` works with one, and current instance of Vue component it's not possible to initialize one (composable) inside another. However, each shared composable is able to receive additional options (within `...args`) while initialization - check the interface [here](#interface).
 
 Here's how you can do it.
 
@@ -199,7 +191,7 @@ export const useSharedState = useStateEffect((...args) => {
 })
 ```
 
-Now. Typescript during the compilation process will not be able to recognize what data you're passing to the composable, so it will not provide types here. However, you can help yourself by defining it. Here is how you can do it.
+Now. Typescript during the transpilation process will not be able to recognize what data you're passing to the composable, so it will not provide types here. However, you can help yourself by defining it. Here is how.
 
 ```typescript
 /* composables/useSharedState.ts */
@@ -212,7 +204,7 @@ export const useSharedState = useStateEffect<{ someRef: Ref }>((...args) => {
 })
 ```
 
-One additional problem might arise with inferred types of composable `return`, as we've just defined some generic interface. To handle that you can add additional typings for your composable output. You can do it like this.
+One additional problem might arise with inferred types of composable `return`, as we've just defined some generic interface. To handle that you can add additional typings for your composable output. Do it like this.
 
 ```typescript
 /* composables/useSharedState.ts */
@@ -229,11 +221,11 @@ export const useSharedState = useStateEffect<{ someRef: Ref }, { state: Ref }>((
 })
 ```
 
-This way you'll get full code recognition while using your composable with components. If you'll not define your addons interface composable `return` will be recognized automatically (inferred by the Typescript compiler).
+This way you'll get full code recognition while using your composable within components. If you'll not define your addons interface composable `return` will be recognized automatically (inferred by the Typescript transpiler).
 
 Finally, you can check it in action, and how it works within the demo inside the `demo` folder or in the special Nuxt 3 [StackBlitz](https://stackblitz.com/edit/vue-use-state-effect-demo) demo.
 
-### Example
+### Simple Example
 
 ---
 

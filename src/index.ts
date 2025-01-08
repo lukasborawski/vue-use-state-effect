@@ -3,9 +3,9 @@ import { effectScope, getCurrentInstance, getCurrentScope, onBeforeMount, onBefo
 import {
   Function,
   UseStateEffect,
-  UseStateEffectConfig,
-  UseStateEffectOptions,
-  UseStateEffectSignature,
+  Config,
+  Options,
+  Signature,
 } from './types'
 
 const [stateEffectSig, useStateEffectSig, stateEffectDestroyLabelSig]: string[] = [
@@ -14,7 +14,7 @@ const [stateEffectSig, useStateEffectSig, stateEffectDestroyLabelSig]: string[] 
   'stateEffectDestroyLabel',
 ]
 
-export function useStateEffect(composable: Function, config: UseStateEffectConfig): UseStateEffect | Ref<null> {
+export function useStateEffect(composable: Function, config: Config): UseStateEffect | Ref<null> {
   /**
    * Composable definition (body|type) check.
    */
@@ -28,7 +28,7 @@ export function useStateEffect(composable: Function, config: UseStateEffectConfi
   let subscribers: number = 0
   let destroyed: boolean = false
   let state: any, scope: EffectScope | null
-  const { name, destroy, debug }: UseStateEffectConfig = { name: null, destroy: false, debug: false, ...config }
+  const { name, destroy, debug }: Config = { name: null, destroy: false, debug: false, ...config }
   /**
    * Destroy State Effect.
    * @type {function}
@@ -105,7 +105,7 @@ export function useStateEffect(composable: Function, config: UseStateEffectConfi
      */
     if (state && destroy) {
       if (args.length > 0) {
-        const [opts]: UseStateEffectOptions[] = args
+        const [opts]: Options[] = args
         const { destroyLabels, props } = opts
         if (opts && (!destroyLabels || !props?.stateEffectDestroyLabel)) {
           console.warn(
@@ -130,12 +130,12 @@ export function useStateEffect(composable: Function, config: UseStateEffectConfi
      * @type {function|null}
      * @name recordState
      */
-    const recordState: UseStateEffectSignature | null | undefined = state
-      ? (state.effects as UseStateEffectSignature[]).find((effect) => effect.hasOwnProperty('_syg'))
+    const recordState: Signature | null | undefined = state
+      ? (state.effects as Signature[]).find((effect) => effect.hasOwnProperty('_syg'))
       : null
     return {
       [name || 'state']:
-        ((recordState as UseStateEffectSignature)?._syg === (name || stateEffectSig) && recordState) || ref<null>(null),
+        ((recordState as Signature)?._syg === (name || stateEffectSig) && recordState) || ref<null>(null),
     }
   }
 }
