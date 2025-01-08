@@ -1,10 +1,10 @@
 ## Vue Use State Effect
 
-**CAUTION**: Built and tested for/with **Vue 3** and/or **Nuxt 3** (RC-12).
+**CAUTION**: Built and tested with **Nuxt 3.15**.
 
-Fast and small library, built on top of the native `scopeEffect` **Vue 3 API** that will provide safe and sharable (across the app) state for your local composables and functions. It might be a good replacement for **Vuex** or **Pinia** state management, if you need smaller and less extensive solution.
+A fast and lightweight library (composable) that utilizes the native `EffectScope` **Vue 3 API**. It is designed to offer secure and shareable (across the app) state for your local composables and functions. It can serve as a viable replacement or alternative to **Vuex** or **Pinia** state management, particularly if you require a smaller and less extensive solution.
 
-**Check out the Stackblitz Nuxt 3 demo [here](https://stackblitz.com/edit/vue-use-state-effect-demo).** 🚀
+**Check out the Stackblitz Nuxt demo [here](https://stackblitz.com/edit/vue-use-state-effect-demo).** 🚀
 
 ### Motivation / Story
 
@@ -35,32 +35,12 @@ Create local composable with some state and pass it to the `useStateEffect`.
 ```javascript
 import { useStateEffect } from 'vue-use-state-effect'
 
-const composable = () => {
-  /* your composable logic here */
-}
-
-export const useSharedComposable = useStateEffect(composable, { ...config })
-```
-
-Interface (**TypeScript**).
-
-```typescript
-interface UseStateEffectConfig {
-  readonly name?: string | null
-  readonly destroy?: boolean | 'custom'
-  readonly debug?: boolean
-}
-export type UseStateEffectOptions<T = any> = {
-  readonly destroyLabels: string[]
-  readonly props: ExtractPropTypes<{ stateEffectDestroyLabel: string } | T>
-}
-
-export function useStateEffect<T extends (...args: any[]) => ReturnType<T>>(
-  composable: T,
-  config?: UseStateEffectConfig,
-): (opts?: UseStateEffectOptions<opts.props>) => {
-  [keyof in string | 'state']: ReturnType<T>
-}
+export const sharedComposable = useStateEffect(
+  (...args) => {
+    /* your composable logic here */
+  },
+  { ...config },
+)
 ```
 
 Please check the configuration, all the details and examples [here](https://github.com/lukasborawski/vue-use-state-effect).

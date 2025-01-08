@@ -33,8 +33,8 @@ onMounted(() => {
   } = useSharedState()
   testState.value = state.value.test
 })
-watch([() => state.value], ([newState]) => {
-  testState.value = newState.test
+watch([() => state], ([newState]) => {
+  testState.value = newState.value.test
 })
 const goToHome = () => {
   return router.push('/')

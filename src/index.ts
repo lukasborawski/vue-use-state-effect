@@ -1,6 +1,12 @@
 import type { EffectScope, Ref } from 'vue'
 import { effectScope, getCurrentInstance, getCurrentScope, onBeforeMount, onBeforeUnmount, ref } from 'vue'
-import { Function, UseStateEffect, UseStateEffectConfig, UseStateEffectOptions, UseStateEffectSignature } from './types'
+import {
+  Function,
+  UseStateEffect,
+  UseStateEffectConfig,
+  UseStateEffectOptions,
+  UseStateEffectSignature,
+} from './types'
 
 const [stateEffectSig, useStateEffectSig, stateEffectDestroyLabelSig]: string[] = [
   'StateEffect',
@@ -99,7 +105,7 @@ export function useStateEffect(composable: Function, config: UseStateEffectConfi
      */
     if (state && destroy) {
       if (args.length > 0) {
-        const [opts]: [UseStateEffectOptions] = args
+        const [opts]: UseStateEffectOptions[] = args
         const { destroyLabels, props } = opts
         if (opts && (!destroyLabels || !props?.stateEffectDestroyLabel)) {
           console.warn(
