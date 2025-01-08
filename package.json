@@ -1,9 +1,9 @@
 {
   "name": "vue-use-state-effect",
-  "version": "0.1.4",
-  "description": "Fast and small library, built on top of the native Vue.js API that will provide a safe and sharable (across the app) state for your local composables and functions.",
-  "main": "lib/index.cjs.js",
-  "module": "lib/index.es.js",
+  "version": "0.1.5",
+  "description": "Fast and small library built on top of the native Vue.js API, providing a safe and sharable state across the app for your composables and functions.",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "lib",
@@ -15,10 +15,9 @@
     "prepare": "husky install",
     "build": "rimraf ./lib/ && rollup -c",
     "dev": "rollup -c -w",
-    "test": "jest --passWithNoTests --coverage",
+    "test": "rimraf ./history/ && jest --passWithNoTests --coverage",
     "prepublish": "yarn build",
-    "demo:vue": "yarn build && cd demo-vue && yarn && yarn dev",
-    "demo:nuxt": "yarn build && cd demo-nuxt && yarn && yarn dev"
+    "demo": "yarn build && cd demo && yarn && yarn dev"
   },
   "repository": {
     "type": "git",
@@ -39,31 +38,30 @@
     "url": "https://github.com/lukasborawski/vue-use-state-effect/issues"
   },
   "homepage": "https://github.com/lukasborawski/vue-use-state-effect#readme",
-  "dependencies": {
-    "typescript": "~4.6.4"
-  },
   "devDependencies": {
-    "@babel/preset-env": "^7.15.6",
-    "@babel/preset-typescript": "^7.15.0",
-    "@commitlint/cli": "^13.1.0",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-typescript": "^7.20.2",
+    "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^13.1.0",
-    "@jest/types": "^27.1.1",
+    "@jest/types": "^29.0",
+    "@rollup/plugin-terser": "^0.4",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.9.6",
-    "babel-jest": "^27.2.2",
-    "husky": "^7.0.2",
-    "jest": "^27.2.2",
+    "babel-jest": "^29.0",
+    "husky": "^8.0.0",
+    "jest": "^29.0",
     "prettier": "^2.4.1",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.71.1",
-    "rollup-plugin-dts": "^4.0.0",
-    "rollup-plugin-typescript2": "^0.30.0",
-    "rollup-plugin-uglify": "^6.0.4",
-    "ts-jest": "^27.0.5",
-    "ts-node": "^10.2.1",
-    "vue": "~3.2.33"
+    "rimraf": "^4.0.0",
+    "rollup": "^3",
+    "rollup-plugin-dts": "^5.0.0",
+    "rollup-plugin-ignore": "^1.0.0",
+    "rollup-plugin-typescript2": "^0.34.0",
+    "ts-jest": "^29.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5",
+    "vue": "^3.5"
   },
   "peerDependencies": {
-    "vue": "~3.2.33"
+    "vue": "^3.5"
   }
 }

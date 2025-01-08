@@ -29,11 +29,11 @@ import Characters from '~/components/Characters.vue'
 
 const router = useRouter()
 const {
-  sharedState: { state, updateState },
-} = useSharedState()
-const {
   sharedFetch: { loading, getCharacters },
 } = useSharedFetch()
+const {
+  sharedState: { state, updateState },
+} = useSharedState({ addons: { loading } })
 
 const testState = computed(() => state.value.test)
 

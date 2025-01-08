@@ -1,6 +1,6 @@
 **Description**:
 ---
-Some issue description.
+Issue description should be here.
 
 **Tasks**:
 ---
@@ -8,8 +8,8 @@ Some issue description.
 
 **Research**:
 ---
-None
+*None*
 
 **Screenshots**:
 ---
-None
+*None*

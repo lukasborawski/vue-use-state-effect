@@ -1,14 +1,15 @@
 <!--- Please crate an issue if this PR is not connected with anyone. --->
 
+<!--- Example - Closing: #10 --->
 Closing: #[issue number]
 
-**Tasks**:
+**Todo**:
 ---
 * [ ] issue connected
 * [ ] summary
 * [ ] self review
-* [ ] issue todos
+* [ ] issue todos done
 
 **Summary**:
 ---
-*Write here some summary.*
+*Write here summary of changes.*

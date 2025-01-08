@@ -1,4 +1,4 @@
-import { useStateEffect } from '~/lib/index.cjs'
+import { useStateEffect } from '~/lib/index.js'
 import { ref, getCurrentInstance } from 'vue'
 
 const config = {
@@ -74,6 +74,15 @@ describe('vue-use-state-effect', () => {
     it('returns state with signature', () => {
       const receivedState = useStateEffect(composableMock)()
       expect(JSON.stringify(receivedState)).toMatch('_syg')
+    })
+    it('returns state with addons', () => {
+      const receivedState = useStateEffect((...args) => {
+        const [options] = args
+        return {
+          state: { test: options.addons.test },
+        }
+      })({ addons: { test: 'test' } })
+      expect(receivedState).toEqual({ state: { _syg: 'StateEffect', _uid: 1, state: { test: 'test' } } })
     })
   })
 

@@ -12,6 +12,6 @@
     "vue-use-state-effect": "^0.1.0"
   },
   "devDependencies": {
-    "nuxt": "3.0.0-rc.1"
+    "nuxt": "^3"
   }
 }

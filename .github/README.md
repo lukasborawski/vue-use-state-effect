@@ -1,16 +1,15 @@
 ## Vue Use State Effect
 
-<!-- <a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://img.shields.io/github/workflow/status/lukasborawski/vue-use-state-effect/CI" alt="npm version" height="18"></a> -->
 <a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&r=r&type=6e&v=0.1.4&x2=0" alt="npm version" height="18"></a>
 <a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://img.shields.io/bundlephobia/min/vue-use-state-effect" alt="npm version" height="18"></a>
 <a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://img.shields.io/npm/dm/vue-use-state-effect" alt="npm version" height="18"></a>
 <a href="https://badge.fury.io/js/vue-use-state-effect"><img src="https://img.shields.io/npm/l/vue-use-state-effect" alt="npm version" height="18"></a>
 
-**CAUTION**: Built and tested for/with **Vue 3** and/or **Nuxt 3** (RC-12).
+**CAUTION**: Built and tested with **Nuxt 3.15**.
 
-Fast and small library (composable), built on top of the native `EffectScope` **Vue 3 API** that will provide safe and sharable (across the app) state for your local composables and functions. It might be a good replacement / alternative for **Vuex** or **Pinia** state management, if you need smaller and less extensive solution.
+Fast and lightweight library (composable) that utilizes the native `EffectScope` **Vue 3 API**. It is designed to offer secure and shareable (across the app) state for your local composables and functions. It can serve as a viable replacement or alternative to **Vuex** or **Pinia** state management, particularly if you require a smaller and less extensive solution.
 
-#### Check out the **Stackblitz** Nuxt 3 demo [here](https://stackblitz.com/edit/vue-use-state-effect-demo). 🚀
+**Check out the **Stackblitz** Nuxt 3 demo [here](https://stackblitz.com/edit/vue-use-state-effect-demo)**. 🚀
 
 ### Motivation / Story
 
@@ -18,8 +17,7 @@ Fast and small library (composable), built on top of the native `EffectScope` **
 
 You can read all about the technical background and all the details in this [article](https://lukasborawski.medium.com/vue-use-state-effect-14f81a6c8d62).
 
-Check out below how to use it, provided examples and demos where you can see it in action. Any questions, problems, errors? Please 
-check out the [Q&A](#questions) section first, then if you still will be unhappy add a new [Issue](https://github.com/lukasborawski/vue-use-state-effect/issues). Thanks and Enjoy!
+Check out the docs of how to use it, get familiar with provided examples and demos where you can see it in action. Any questions, problems, errors? Please check out the [Q&A](#questions) section first, then if you still will be unhappy add a new [Issue](https://github.com/lukasborawski/vue-use-state-effect/issues). Thanks and Enjoy!
 
 ### Installation
 
@@ -42,31 +40,36 @@ Create your local composable with some state and pass it to the `useStateEffect`
 ```javascript
 import { useStateEffect } from 'vue-use-state-effect'
 
-const composable = () => {
-  /* your composable logic here */
-}
-
-export const useSharedComposable = useStateEffect(composable, { ...config })
+export const sharedComposable = useStateEffect(
+  (...args) => {
+    /* your composable logic here */
+  },
+  { ...config },
+)
 ```
 
-Interface (**TypeScript**).
+#### Interface
 
 ```typescript
-interface UseStateEffectConfig {
-  readonly name?: string | null
-  readonly destroy?: boolean | 'custom'
-  readonly debug?: boolean
-}
-export type UseStateEffectOptions<T = any> = {
-  readonly destroyLabels: string[]
-  readonly props: ExtractPropTypes<{ stateEffectDestroyLabel: string } | T>
-}
+type ComposableEffectValue = Ref | ComputedRef | Function
+type ComposableEffect = Record<string, ComposableEffectValue>
 
-export function useStateEffect<T extends (...args: any[]) => ReturnType<T>>(
-  composable: T,
-  config?: UseStateEffectConfig,
-): (opts?: UseStateEffectOptions<opts.props>) => {
-  [keyof in string | 'state']: ReturnType<T>
+export type Options<Addons = ComposableEffect> = Partial<{
+  readonly destroyLabels: string[]
+  readonly props: ExtractPropTypes<{ stateEffectDestroyLabel: string }>
+  readonly addons: Addons
+}>
+
+function useStateEffect<
+  Extend extends ComposableEffect,
+  Effect extends Extend extends undefined ? unknown : Record<string, ComposableEffectValue>,
+>(
+  composable: (
+    ...args: ComposableArgs<Extend>
+  ) => Effect extends undefined ? Record<string, ComposableEffectValue> : Effect,
+  config?: Config,
+): (options?: Options<Extend>) => {
+  [key: string | 'state']: unknown extends Effect ? ReturnType<typeof composable> : Effect
 }
 ```
 
@@ -84,7 +87,7 @@ You can use some options to define your usage preferences.
 
 - **default**: `'state'`
 
-- **description**: name of composable state object that you'll be referring to inside your components, if not defined by default your state object will get `state` key, please note that it's not read automatically and that's because of application build mode functions name-spaces formatting
+- **description**: name (key) of composable state object that you'll be referring to inside your components, if not defined by default your state object will get `state` key, please note that it's not read automatically and that's because of application build mode functions name-spaces formatting
 
 ### `debug`
 
@@ -95,10 +98,9 @@ You can use some options to define your usage preferences.
 - **description**: if set to `true` it will turn on the debug mode, you will be able to see the shared composable body / state
 
 - **tip**: you can turn it on for the development mode
-   
-    ```json
-    { debug: process.env.NODE_ENV === 'development' }
-    ```` 
+  ```json
+  { debug: process.env.NODE_ENV === 'development' }
+  ```
 
 ### `destroy`
 
@@ -108,23 +110,18 @@ You can use some options to define your usage preferences.
 
 - **description**: if set to `true` composable state will be destroyed after component `onBeforeUnmount` hook, if set to `custom` it will be waiting for custom setup (described below) and destroyed `onBeforeMount` hook
 
-#### Destroy Destination (Custom) ✨ `from 0.1.2`
+### Destroy Destination (Custom) ✨ `from 0.1.2`
 
-You can decide where the state will be destroyed (re-initialized). You will achieve this by passing special property and corresponding label that will point place / component where it should be executed. 
+---
 
-For this one you can pass inline options to the `useStateEffect` composable while invoking within the components.
+You can decide where the state will be destroyed (re-initialized). You will achieve this by passing special property and corresponding label that will point place / component where it should be executed.
 
-```typescript
-export type UseStateEffectOptions<T = any> = {
-  readonly destroyLabels: string[]
-  readonly props: ExtractPropTypes<{ stateEffectDestroyLabel: string } | T>
-}
-```
+For this one you can pass inline options to the `useStateEffect` composable while invoking within the component - check the interface [here](#interface).
 
-Let's say that `SharedStateComponent.vue` component is reused across the application, and you're displaying here some shared data from the `useSharedState` composable. And it will always be updated and aligned with the state unless the passed property from the parent component will not meet the same custom label defined as a `destroyLabels` (you can use multiple) with your composable invocation. Like this.  
+Suppose you have a `SharedStateComponent.vue` component that is reused throughout the application, and it displays shared data from the `useSharedState` composable. This data will always be updated and synchronized with the state, unless the property passed from the parent component does not match the custom label specified as `destroyLabels` (which can be multiple) in your composable invocation.
 
 ```vue
-<!-- SharedStateComponent.vue  -->
+<!-- components/SharedStateComponent.vue  -->
 
 <script setup lang="ts">
 import { useSharedState } from '@composables/useSharedState'
@@ -139,7 +136,7 @@ const {
 </script>
 ```
 
-*please check the [example](#example) for better context
+\*please check the [example](#example) for better context
 
 And this is how you can use it along with the real component or page.
 
@@ -153,33 +150,82 @@ And this is how you can use it along with the real component or page.
 
 So while this `New.vue` component will be initialized (just before mounting) the state that you've established in the `SharedStateComponent.vue` component will be destroyed (re-initialized).
 
-
 > **WARNING**!
-> 
-> Please don't try to destroy the state in the same component where you're updating (setting) the new data for it. It will be caught with the same lifecycle loop and destroyed after component termination. Finally, passed as empty. 
+>
+> Please don't try to destroy the state in the same component where you're updating (setting) the new data for it. It will be caught with the same lifecycle loop and destroyed after component termination. Finally, passed as empty.
 >
 > ![Diagram](https://share.getcloudapp.com/eDuXxk88/download/use-state-effect-destroy.svg)
-> 
+>
 > To destroy state just after component unmount event you can (and probably you should 😊) use [straight form](#destroy) of the destroy feature with `true` value.
-
 
 Great! You can check it in action with the special Nuxt 3 [StackBlitz](https://stackblitz.com/edit/vue-use-state-effect-demo) demo.
 
+### Extending ✨ `from 0.1.5`
+
 ---
 
-In the end, here is a simple example of how to use the whole config.
+There might be a need to extend the composable that you're sharing with `useStateEffect`. Maybe add some additional data that is coming from the other composable, or some global handler dedicated to the wider context. Since the `useStateEffect` works with one, and current instance of Vue component it's not possible to initialize one (composable) inside another. However, each shared composable is able to receive additional options (within `...args`) while initialization - check the interface [here](#interface).
 
-```javascript
-export const useComposable = useStateEffect(useSharedComposable, {
-  name: 'useSharedComposable',
-  debug: true,
-  destroy: true, // or 'custom'
+Here's how you can do it.
+
+```vue
+<!-- components/SharedStateComponent.vue  -->
+
+<script setup lang="ts">
+import { useSharedState } from '@composables/useSharedState'
+
+const {
+  sharedState: { data },
+} = useSharedState({ addons: { someRef } })
+</script>
+```
+
+```typescript
+/* composables/useSharedState.ts */
+
+export const useSharedState = useStateEffect((...args) => {
+  const [options] = args
+  console.log(options.addons.someRef)
+
+  /* rest of the composable logic */
 })
 ```
 
-More about it in the example that you can find below.
+Now. Typescript during the transpilation process will not be able to recognize what data you're passing to the composable, so it will not provide types here. However, you can help yourself by defining it. Here is how.
 
-### Example
+```typescript
+/* composables/useSharedState.ts */
+
+export const useSharedState = useStateEffect<{ someRef: Ref }>((...args) => {
+  const [options] = args
+  console.log(options.addons.someRef)
+
+  /* rest of the composable logic */
+})
+```
+
+One additional problem might arise with inferred types of composable `return`, as we've just defined some generic interface. To handle that you can add additional typings for your composable output. Do it like this.
+
+```typescript
+/* composables/useSharedState.ts */
+
+export const useSharedState = useStateEffect<{ someRef: Ref }, { state: Ref }>((...args) => {
+  const [options] = args
+  console.log(options.addons.someRef)
+
+  /* rest of the composable logic */
+
+  return {
+    state,
+  }
+})
+```
+
+This way you'll get full code recognition while using your composable within components. If you'll not define your addons interface composable `return` will be recognized automatically (inferred by the Typescript transpiler).
+
+Finally, you can check it in action, and how it works within the demo inside the `demo` folder or in the special Nuxt 3 [StackBlitz](https://stackblitz.com/edit/vue-use-state-effect-demo) demo.
+
+### Simple Example
 
 ---
 
@@ -192,39 +238,30 @@ OK - first - let's create a local composable.
 
 import { ref } from 'vue'
 
-const sharedState = () => {
-  const state = ref({
-    test: '🚀 Initial state value.',
-  })
-  const updateState = () => {
-    state.value = {
-      test: '🌝 Updated state value.',
+export const useSharedState = useStateEffect(
+  (...args) => {
+    const state = ref({
+      test: '🚀 Initial state value.',
+    })
+    const updateState = () => {
+      state.value = {
+        test: '🌝 Updated state value.',
+      }
     }
-  }
-  return {
-    state,
-    updateState,
-  }
-}
+    return {
+      state,
+      updateState,
+    }
+  },
+  {
+    name: 'sharedState',
+    debug: true,
+    destroy: false,
+  },
+)
 ```
 
-What you can see here is a simple state `ref` object to which we've passed `test` string. Then we have method that will update this state. Please notice that we're not exporting this method, we're not creating any external or global state objects, everything is locked inside the local composition function.
-
-Now, import and use the `vue-use-state-effect` composable.
-
-```typescript
-/* composables/useSharedState.ts */
-
-import { useStateEffect } from 'vue-use-state-effect'
-
-/* your composable logic  */
-
-export const useSharedState: any = useStateEffect(sharedState, {
-  name: 'sharedState',
-  debug: true,
-  destroy: false,
-})
-```
+Here, a simple `ref` object is initialized with a `test` string. Additionally, there's the `updateState` method, designed to modify this state. It's essential to understand that the state is not exposed in any way, nor are any external or global state objects created; all logic is self-contained within the local composition function. This is then encapsulated by the `useStateEffect` handler and ultimately shared as an composable.
 
 OK, great. Let's use it along with some page / component. Create one e.g. `home.vue`.
 
@@ -248,7 +285,9 @@ const test = computed(() => state.value.test) // '🚀 Initial state value.',
 </script>
 ```
 
-Please note that we're using `<script setup>` notation here, you can find more about it in [this article](https://itnext.io/vue-3-script-setup-afb42a53462a). Right, what you can see here is that we're importing our newly shared composable with `state` data. With the `state` we have the `updateState` method, that will update the state - of course. Name of the parent object (`sharedState`) was defined within the configuration. Now you can create new page / component and read saved or updated state along with the different context. Like this.
+Here, a new composable is used, accessing `state` data and an `updateState` method for modifying it. The parent object's name, `sharedState`, is specified in the configuration within the `composables/useSharedState.ts` file - check above. This allows new pages or components to access and utilize the saved or updated state in various contexts, as demonstrated. Simple.
+
+Note the use of `<script setup>` notation, which is explained in [this article](https://itnext.io/vue-3-script-setup-afb42a53462a).
 
 ```vue
 <!-- New Page | New.vue -->
@@ -270,26 +309,23 @@ const test = ref(state.value.test) // '🌝 Updated state value.',
 </script>
 ```
 
-**Tip**: because of asynchronously created components (especially in Nuxt), if you want to destroy state after the component or page were unmounted - where this state was used - it's good to listen for the new one within the `onMounted` hook.
+**Tip**: because of asynchronously created components (especially in Nuxt), if you want to destroy state after the component or page was unmounted - where this state was used - it's good to listen for the new one within the `onMounted` hook.
 
 ### Demo
 
 ---
 
-Want to check and test it in action? 
+Want to check and test it in action?
 
 #### Check out the **Stackblitz** Nuxt 3 demo [here](https://stackblitz.com/edit/vue-use-state-effect-demo). 🚀
 
-You can also try it out locally with the simple apps (Vue 3 and Nuxt 3) in the `demo` folders. You can fire it up manually or from the main folder of this repository, by using these two commands*.
+You can also try it out locally with the simple app (Nuxt 3) in the `demo` folder. You can fire it up manually or from the main folder of this repository, by using this command.
 
 ```bash
-# vue demo
-yarn demo:vue
-# nuxt demo
-yarn demo:nuxt
+yarn demo
 ```
 
-**using [yarn](https://yarnpkg.com) here, but you can still change it to npm*
+\*_using [yarn](https://yarnpkg.com) here, but you can still change it to npm_
 
 ---
 

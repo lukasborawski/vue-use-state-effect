@@ -81,6 +81,8 @@ dist
 
 # IDE / Editor
 .idea
+.vscode
+.history
 
 # Service worker
 sw.*
@@ -95,8 +97,10 @@ sw.*
 .reify-cache
 **/**/.reify-cache
 
+# Dist
 lib
 .husky/_
 
+# Test generations
 package
 vue-use-state-effect/
