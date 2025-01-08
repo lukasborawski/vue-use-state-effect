@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   app: {
     head: {
+      title: 'Vue Use State Effect Demo',
       script: [{ src: 'https://cdn.tailwindcss.com' }],
     },
   },

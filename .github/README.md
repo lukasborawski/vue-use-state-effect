@@ -7,7 +7,7 @@
 
 **CAUTION**: Built and tested with **Nuxt 3.15**.
 
-A fast and lightweight library (composable) that utilizes the native `EffectScope` **Vue 3 API**. It is designed to offer secure and shareable (across the app) state for your local composables and functions. It can serve as a viable replacement or alternative to **Vuex** or **Pinia** state management, particularly if you require a smaller and less extensive solution.
+Fast and lightweight library (composable) that utilizes the native `EffectScope` **Vue 3 API**. It is designed to offer secure and shareable (across the app) state for your local composables and functions. It can serve as a viable replacement or alternative to **Vuex** or **Pinia** state management, particularly if you require a smaller and less extensive solution.
 
 **Check out the **Stackblitz** Nuxt 3 demo [here](https://stackblitz.com/edit/vue-use-state-effect-demo)**. 🚀
 
@@ -163,7 +163,7 @@ Great! You can check it in action with the special Nuxt 3 [StackBlitz](https://s
 
 ---
 
-There might be a need to extend the composable that you're sharing. Maybe add some additional data that is coming from the other composable, or some global handler dedicated to the wider context. Since the `UseStateEffetct` works with one, and current instance of Vue component it's not possible to initialize one (composable) inside another. However, each shared composable is able to receive additional options (within `...args`) while initialization.
+There might be a need to extend the composable that you're sharing. Maybe add some additional data that is coming from the other composable, or some global handler dedicated to the wider context. Since the `useStateEffect` works with one, and current instance of Vue component it's not possible to initialize one (composable) inside another. However, each shared composable is able to receive additional options (within `...args`) while initialization.
 
 ```typescript
 type UseStateEffectComposableReturn = Record<string, Ref | ComputedRef | Function>
@@ -269,7 +269,7 @@ export const useSharedState = useStateEffect(
 )
 ```
 
-What you can see here is a simple state `ref` object to which we've passed `test` string. Then we have method that will update this state. Please notice that we're not exporting this composable, we're not creating any external or global state objects, everything is locked inside the local composition function. Then it's wrapped by the `UseStateEffect` handler and finally shared as an effect.
+Here, a simple `ref` object is initialized with a `test` string. Additionally, there's the `updateState` method, designed to modify this state. It's essential to understand that the state is not exposed in any way, nor are any external or global state objects created; all logic is self-contained within the local composition function. This is then encapsulated by the `useStateEffect` handler and ultimately shared as an composable.
 
 OK, great. Let's use it along with some page / component. Create one e.g. `home.vue`.
 
@@ -293,7 +293,9 @@ const test = computed(() => state.value.test) // '🚀 Initial state value.',
 </script>
 ```
 
-Please note that we're using `<script setup>` notation here, you can find more about it in [this article](https://itnext.io/vue-3-script-setup-afb42a53462a). Right, what you can see here is that we're importing our newly shared composable with `state` data. With the `state` we have the `updateState` method, that will update the state - of course. Name of the parent object (`sharedState`) was defined within the configuration. Now you can create new page / component and read saved or updated state along with the different context. Like this.
+Here, a new composable is used, accessing `state` data and an `updateState` method for modifying it. The parent object's name, `sharedState`, is specified in the configuration within the `composables/useSharedState.ts` file - check above. This allows new pages or components to access and utilize the saved or updated state in various contexts, as demonstrated. Simple.
+
+Note the use of `<script setup>` notation, which is explained in [this article](https://itnext.io/vue-3-script-setup-afb42a53462a).
 
 ```vue
 <!-- New Page | New.vue -->
@@ -315,7 +317,7 @@ const test = ref(state.value.test) // '🌝 Updated state value.',
 </script>
 ```
 
-**Tip**: because of asynchronously created components (especially in Nuxt), if you want to destroy state after the component or page were unmounted - where this state was used - it's good to listen for the new one within the `onMounted` hook.
+**Tip**: because of asynchronously created components (especially in Nuxt), if you want to destroy state after the component or page was unmounted - where this state was used - it's good to listen for the new one within the `onMounted` hook.
 
 ### Demo
 
@@ -325,13 +327,10 @@ Want to check and test it in action?
 
 #### Check out the **Stackblitz** Nuxt 3 demo [here](https://stackblitz.com/edit/vue-use-state-effect-demo). 🚀
 
-You can also try it out locally with the simple apps (Vue 3 and Nuxt 3) in the `demo` folders. You can fire it up manually or from the main folder of this repository, by using these two commands\*.
+You can also try it out locally with the simple app (Nuxt 3) in the `demo` folder. You can fire it up manually or from the main folder of this repository, by using this command.
 
 ```bash
-# vue demo
-yarn demo:vue
-# nuxt demo
-yarn demo:nuxt
+yarn demo
 ```
 
 \*_using [yarn](https://yarnpkg.com) here, but you can still change it to npm_

@@ -1,13 +1,14 @@
 ### 0.1.5 (10.01.2025)
 
 - [**feature**] addons/extending ([#5](https://github.com/lukasborawski/vue-use-state-effect/pull/5))
-- Typescript version bump to `^5`
 - updated dependencies
 - removed Vue demo, **Nuxt** demo became default
 - Nuxt demo update
   - fresh version of the framework
   - composables updated to showcase extending
 - docs update
+- Typescript version bump to `^5`
+- Node version bump to `^20`
 
 ### 0.1.4 (25.10.2022)
 

@@ -2,7 +2,7 @@
 
 **CAUTION**: Built and tested with **Nuxt 3.15**.
 
-A fast and lightweight library (composable) that utilizes the native `EffectScope` **Vue 3 API**. It is designed to offer secure and shareable (across the app) state for your local composables and functions. It can serve as a viable replacement or alternative to **Vuex** or **Pinia** state management, particularly if you require a smaller and less extensive solution.
+Fast and lightweight library (composable) that utilizes the native `EffectScope` **Vue 3 API**. It is designed to offer secure and shareable (across the app) state for your local composables and functions. It can serve as a viable replacement or alternative to **Vuex** or **Pinia** state management, particularly if you require a smaller and less extensive solution.
 
 **Check out the Stackblitz Nuxt demo [here](https://stackblitz.com/edit/vue-use-state-effect-demo).** 🚀
 
