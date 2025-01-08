@@ -1,7 +1,7 @@
 import typescript from 'rollup-plugin-typescript2'
 import ignore from 'rollup-plugin-ignore'
 import { dts } from 'rollup-plugin-dts'
-import { terser } from '@rollup/plugin-terser'
+import terser from '@rollup/plugin-terser'
 
 export default [
   {
